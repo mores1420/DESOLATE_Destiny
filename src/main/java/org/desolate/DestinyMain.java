@@ -6,6 +6,7 @@ import org.desolate.Listener.HelloListener;
 public class DestinyMain extends PluginBase {
 
     String message;
+    public static DestinyMain instance;
 
     //插件加载
     @Override
@@ -29,4 +30,8 @@ public class DestinyMain extends PluginBase {
         this.message=this.getConfig().getString("message");
     }
 
+    //获取实例
+    public static DestinyMain getInstance() {
+        return instance;
+    }
 }
