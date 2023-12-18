@@ -18,18 +18,14 @@ public class Player{
     @JSONField(name = "玩家职业经验")
     private String PlayerExp;
 
-    @JSONField(name = "更新时间")
-    private String UpdateTime;
-
     //玩家对象
-    public Player(String playerName, String playerOccupation, String playerLevel, String playerExp, String playerFit,String updateTime) {
+    public Player(String playerName, String playerOccupation, String playerLevel, String playerExp, String playerFit) {
         super();
         this.PlayerName = playerName;
         this.PlayerOccupation = playerOccupation;
         this.PlayerFit = playerFit;
         this.PlayerLevel = playerLevel;
         this.PlayerExp = playerExp;
-        this.UpdateTime = updateTime;
     }
 
     public String getPlayerOccupation() {

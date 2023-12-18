@@ -20,8 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static cn.nukkit.utils.Utils.writeFile;
-
-import static org.desolate.DestinyMain.*;
+import static org.desolate.DestinyMain.getInstance;
 
 public class HelloListener implements Listener {
     private List<Player> PlayerDataList= new ArrayList<>();
@@ -64,7 +63,7 @@ public class HelloListener implements Listener {
                     }else {
                         //写入新玩家信息
                         PlayerDataList.add(new Player(
-                                "昵称","职业","职业等级","职业经验值","职业契合度","更新时间"));
+                                "昵称","职业","职业等级","职业经验值","职业契合度"));
                         String jsonString= JSONUtils.convertObjectToJSON(PlayerDataList);
                         writeFile(filePath,jsonString);
                     }
