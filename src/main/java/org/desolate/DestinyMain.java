@@ -1,12 +1,16 @@
 package org.desolate;
 
 import cn.nukkit.plugin.PluginBase;
+import cn.nukkit.utils.Config;
 import org.desolate.Listener.HelloListener;
+import org.desolate.Role.Task.InSunCheckTask;
 
 public class DestinyMain extends PluginBase {
 
     String message;
     public static DestinyMain instance;
+
+    public Config config;
 
     //插件加载
     @Override
@@ -15,6 +19,8 @@ public class DestinyMain extends PluginBase {
         this.loadConfig();
         //注册监听器
         this.getServer().getPluginManager().registerEvents(new HelloListener(), this);
+        //加载配置文件
+        config=new Config(getDataFolder()+"/config.yml",Config.YAML);
         this.getLogger().info("PLUGIN IS RUNNING");
     }
 
