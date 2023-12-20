@@ -8,7 +8,6 @@ import org.desolate.DestinyMain;
 import org.desolate.FileUtil.DataUtil;
 import org.desolate.FileUtil.JSONUtils;
 import org.desolate.Player.Player;
-import org.desolate.Role.Task.InSunCheckTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,6 +40,6 @@ public class HelloListener implements Listener {
 
             writeFile(filePath,jsonString);
         }
-        destinyMain.getServer().getScheduler().scheduleRepeatingTask(new InSunCheckTask(destinyMain,event.getPlayer()),20);
+//        destinyMain.getServer().getScheduler().scheduleRepeatingTask(new InSunCheckTask(destinyMain,event.getPlayer()),20);
     }
 }
