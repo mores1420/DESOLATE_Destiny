@@ -19,9 +19,9 @@ public class DestinyMain extends PluginBase {
         this.loadConfig();
         //注册监听器
         this.getServer().getPluginManager().registerEvents(new HelloListener(), this);
-        this.getServer().getPluginManager().registerEvents(new PlayerMoveListener(),this);
+        this.getServer().getPluginManager().registerEvents(new PlayerMoveListener(), this);
         //加载配置文件
-        config=new Config(getDataFolder()+"/config.yml",Config.YAML);
+        config = new Config(getDataFolder() + "/config.yml", Config.YAML);
         this.getLogger().info("PLUGIN IS RUNNING");
     }
 
@@ -34,7 +34,7 @@ public class DestinyMain extends PluginBase {
     //读取配置文件
     public void loadConfig() {
         this.reloadConfig();
-        this.message=this.getConfig().getString("message");
+        this.message = this.getConfig().getString("message");
     }
 
     //获取实例

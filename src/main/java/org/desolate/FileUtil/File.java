@@ -7,13 +7,13 @@ import java.nio.file.Paths;
 public class File {
 
     //写入文件
-    public void writeFile(String path,String data){
+    public void writeFile(String path, String data) {
         try {
-            Path Filepath= Paths.get(path);
-            if(!Filepath.getParent().toFile().exists()){
+            Path Filepath = Paths.get(path);
+            if (!Filepath.getParent().toFile().exists()) {
                 Filepath.getParent().toFile().mkdirs();
-            }else {
-                Files.write(Filepath,data.getBytes());
+            } else {
+                Files.write(Filepath, data.getBytes());
             }
         } catch (Exception e) {
             e.printStackTrace();

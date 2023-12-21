@@ -17,9 +17,9 @@ import static cn.nukkit.utils.Utils.writeFile;
 import static org.desolate.FileUtil.DataUtil.filePath;
 
 public class HelloListener implements Listener {
-    private List<Player> PlayerDataList= new ArrayList<>();
-    DataUtil dataUtil= new DataUtil();
-    DestinyMain destinyMain= new DestinyMain();
+    private List<Player> PlayerDataList = new ArrayList<>();
+    DataUtil dataUtil = new DataUtil();
+    DestinyMain destinyMain = new DestinyMain();
 
 //    ignoreCancelled = true - 意思是如果这个事件被别的插件取消了，那 Nukkit 就不会调用我们的插件的事件监听器的这个方法。
 //    priority = EventPriority.NORMAL - 这个决定你的事件监听器的优先级。低优先级的监听器(LOW, LOWEST)会被首先调用，
@@ -29,16 +29,16 @@ public class HelloListener implements Listener {
 
     //监听玩家进入服务器，检查是否第一次加入服务器
     @EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
-    public void onPlayerJoin (PlayerJoinEvent event) throws IOException {
-        String PlayerName=event.getPlayer().getName();
-        String checkDataName=dataUtil.checkValue(PlayerName,"昵称");
-        if (checkDataName==null){
+    public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
+        String PlayerName = event.getPlayer().getName();
+        String checkDataName = dataUtil.checkValue(PlayerName, "昵称");
+        if (checkDataName == null) {
             //写入新玩家信息
             PlayerDataList.add(new Player(
-                    "昵称","职业","职业等级","职业经验值","职业契合度"));
-            String jsonString= JSONUtils.convertObjectToJSON(PlayerDataList);
+                    "昵称", "职业", "职业等级", "职业经验值", "职业契合度"));
+            String jsonString = JSONUtils.convertObjectToJSON(PlayerDataList);
 
-            writeFile(filePath,jsonString);
+            writeFile(filePath, jsonString);
         }
 //        destinyMain.getServer().getScheduler().scheduleRepeatingTask(new InSunCheckTask(destinyMain,event.getPlayer()),20);
     }

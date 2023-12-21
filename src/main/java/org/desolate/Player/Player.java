@@ -2,7 +2,7 @@ package org.desolate.Player;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class Player{
+public class Player {
     @JSONField(name = "玩家昵称")
     private String PlayerName;
 
