@@ -18,7 +18,7 @@ import static cn.nukkit.utils.Utils.writeFile;
 public class DataUtil {
     //定义文件位置
     public static String dataFolderPath = DestinyMain.getInstance().getDataFolder().getPath();
-    public static String filePath = dataFolderPath + "Data.json";
+    public String filePath = dataFolderPath + "Data.json";
 
     JSONArray DataArray;
 
@@ -50,9 +50,10 @@ public class DataUtil {
     }
 
     /**
+     * 设置值
      * @param PlayerName 玩家昵称
      * @param Value      需要设置的键名
-     * @param setValue   设置的String键值
+     * @param setValue   需要设置的键值
      * @throws IOException 抛出异常
      */
     public void setValue(String PlayerName, String Value, Object setValue) throws IOException {
@@ -77,6 +78,8 @@ public class DataUtil {
         InputStream inputStream = getClass().getResourceAsStream(filePath);
         if (inputStream == null) {
             File.createNewFile(filePath);
+            //需要特别处理在运行过程中数据被删除的情况
+            System.out.println("警告！未找到Data.json文件！");
         } else {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             StringBuilder builder = new StringBuilder();

@@ -4,6 +4,7 @@ import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
 import org.desolate.Listener.HelloListener;
 import org.desolate.Listener.PlayerMoveListener;
+import org.desolate.Role.RoleLv;
 
 public class DestinyMain extends PluginBase {
 
@@ -20,6 +21,7 @@ public class DestinyMain extends PluginBase {
         //注册监听器
         this.getServer().getPluginManager().registerEvents(new HelloListener(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerMoveListener(), this);
+        this.getServer().getPluginManager().registerEvents(new RoleLv(),this);
         //加载配置文件
         config = new Config(getDataFolder() + "/config.yml", Config.YAML);
         this.getLogger().info("PLUGIN IS RUNNING");

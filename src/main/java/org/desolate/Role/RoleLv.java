@@ -26,35 +26,83 @@ import java.io.IOException;
 
 public class RoleLv implements Listener {
 
-    DataUtil dataUtil=new DataUtil();
-    Message message=new Message();
+    DataUtil dataUtil = new DataUtil();
+    Message message = new Message();
     /**
      * 基础杀怪经验值
      */
-    double killMonsterExp= message.ExpByKillMonster;
+    double killMonsterExp = message.ExpByKillMonster;
 
     /**
      * 修正值
      */
-    double correctExp=5.0;
+    double correctExp = message.CorrectExpByKillMonster;
 
-    int startLevel,targetLevel;
+    int startLevel, targetLevel;
 
     Player player;
 
     @EventHandler
     public void onEntityDeath(EntityDamageByEntityEvent event) throws IOException {
-        Entity deathEntity=event.getEntity();
-        Entity killEntity=event.getDamager();
-        if (deathEntity.isAlive()&&event.getEntity().getHealth()<=0){
-            if (killEntity instanceof Player){
-                String PlayerName=((Player) killEntity).getPlayer().getName();
-                double PlayerExp= Double.parseDouble(dataUtil.checkValue(PlayerName,"职业经验值"));
-                double NowExp=PlayerExp+killMonsterExp;
-                dataUtil.setValue(PlayerName,"职业经验值",NowExp);
+
+        Entity deathEntity = event.getEntity();
+        Entity killEntity = event.getDamager();
+
+        if (deathEntity.isAlive() && event.getEntity().getHealth() <= 0) {
+            if (killEntity instanceof Player) {
+                String PlayerName = ((Player) killEntity).getPlayer().getName();
+                String MonsterName = deathEntity.getName();
+                int MonsterLevel = Integer.parseInt(getDigit(MonsterName));
+                int PlayerLevel = Integer.parseInt(dataUtil.checkValue(PlayerName, "职业等级"));
+                double PlayerExp = Double.parseDouble(dataUtil.checkValue(PlayerName, "职业经验值"));
+                int num = PlayerLevel - MonsterLevel;
+
+                //如果玩家等级等于怪物等级
+                if (num == 0) {
+                    double NowExp = PlayerExp + killMonsterExp;
+                    dataUtil.setValue(PlayerName, "职业经验值", NowExp);
+                    ((Player) killEntity).sendMessage("您因击杀 " + MonsterName + " 获得了 " + NowExp + " 经验值");
+                }
+                //如果玩家等级高于怪物等级
+                else if (num > 0) {
+                    double NumExp = killMonsterExp - correctExp * num;
+                    if (NumExp <= 0) {
+                        ((Player) killEntity).sendMessage("您因击杀 " + MonsterName + " 获得了0经验值");
+                    } else {
+                        double NowExp = PlayerExp + NumExp;
+                        dataUtil.setValue(PlayerName, "职业经验值", NowExp);
+                        ((Player) killEntity).sendMessage("您因击杀 " + MonsterName + " 获得了 " + NowExp + " 经验值");
+                    }
+                }
+                //如果怪物等级高于玩家等级
+                else {
+                    int Num = MonsterLevel - PlayerLevel;
+                    double NumExp = killMonsterExp + correctExp * Num;
+                    double NowExp = PlayerExp + NumExp;
+                    dataUtil.setValue(PlayerName, "职业经验值", NowExp);
+                    ((Player) killEntity).sendMessage("您因击杀 " + MonsterName + " 获得了 " + NowExp + " 经验值");
+                }
             }
         }
     }
 
 
+    /**
+     * 从字符串中提取数字
+     *
+     * @param str 输入String字符串
+     * @return 字符串中的数字
+     */
+    private static String getDigit(String str) {
+        String result = "";
+        if (str != null && !"".equals(str)) {
+            for (int i = 0; i < str.length(); i++) {
+                if (str.charAt(i) >= 48 && str.charAt(i) <= 57) {
+                    result = result + str.charAt(i) + ",";
+                }
+            }
+        }
+        result = result.substring(0, result.length() - 1);
+        return result;
+    }
 }
